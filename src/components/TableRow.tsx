@@ -6,7 +6,7 @@ interface TableRowProps {
     rowData: TableNode;
 }
 
-export function TableRow ({rowData} : TableRowProps)  {
+export function TableRow({ rowData }: TableRowProps) {
     const dispatch = useAppDispatch();
 
     const handleToggle = () => {
@@ -23,8 +23,8 @@ export function TableRow ({rowData} : TableRowProps)  {
         <tr className="table-row">
             <td className="table-cell">
                 {rowData.children.length > 0 &&
-                <button className="toggle-btn" onClick={handleToggle}>toggle</button>}
-            </td>    
+                    <button className="toggle-btn" onClick={handleToggle}>toggle</button>}
+            </td>
             {dataEntries.map(([key, value]) => (
                 <td className="table-cell" key={key}>{String(value)}</td>
             ))}

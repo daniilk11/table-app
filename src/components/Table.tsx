@@ -14,7 +14,9 @@ export default function Table({ data }: TableProps) {
     return (
       <table>
         <thead>
-          <tr className="table-row"><th className="table-cell">No data</th></tr>
+          <tr className="table-row">
+            <th className="table-cell">No data</th>
+          </tr>
         </thead>
         <tbody></tbody>
       </table>
@@ -41,7 +43,7 @@ export default function Table({ data }: TableProps) {
             {!!expandedIds[node.nodeId] && node.children.length > 0 && (
               <tr>
                 <td >
-                  <Table data={node.children}/>
+                  <Table data={node.children} />
                 </td>
               </tr>
             )}

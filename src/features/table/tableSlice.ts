@@ -4,13 +4,13 @@ import type { TableNode } from "../../types";
 import { removeNode } from "../../utils/tableHelpers";
 
 interface TableState {
-    tableNodes: TableNode[];          
-    expandedIds: Record<string, boolean>;
+  tableNodes: TableNode[];
+  expandedIds: Record<string, boolean>;
 }
-  
+
 const initialState: TableState = {
-    tableNodes: [],
-    expandedIds: {},
+  tableNodes: [],
+  expandedIds: {},
 }
 
 export const tableSlice = createSlice({
@@ -18,20 +18,20 @@ export const tableSlice = createSlice({
   initialState,
   reducers: {
     setTable: (state, action: PayloadAction<TableNode[]>) => {
-        state.tableNodes = action.payload;
+      state.tableNodes = action.payload;
     },
     deleteTableNode: (state, action: PayloadAction<string>) => {
-        const nodeId = action.payload;
-        state.tableNodes = removeNode(state.tableNodes, nodeId);
-        state.expandedIds[nodeId] = false;
+      const nodeId = action.payload;
+      state.tableNodes = removeNode(state.tableNodes, nodeId);
+      state.expandedIds[nodeId] = false;
     },
     toggleTableNode: (state, action: PayloadAction<string>) => {
-        const nodeId = action.payload;
-        if (state.expandedIds[nodeId]) {
-          delete state.expandedIds[nodeId];
-        } else {
-          state.expandedIds[nodeId] = true;
-        }
+      const nodeId = action.payload;
+      if (state.expandedIds[nodeId]) {
+        delete state.expandedIds[nodeId];
+      } else {
+        state.expandedIds[nodeId] = true;
+      }
     }
   }
 })

@@ -17,7 +17,7 @@ function App() {
 
   return (
     <main className="app">
-      <Table data={tableNodes}/>
+      <Table data={tableNodes} />
     </main>
   )
 }
