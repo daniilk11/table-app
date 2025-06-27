@@ -1,35 +1,41 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { TableNode } from "../../types";
+import { removeNode } from "../../utils/tableHelpers";
 
 interface TableState {
     tableNodes: TableNode[];          
-    expandedIds: Set<string>;
+    expandedIds: Record<string, boolean>;
 }
   
 const initialState: TableState = {
     tableNodes: [],
-    expandedIds: new Set(),
+    expandedIds: {},
 }
 
 export const tableSlice = createSlice({
   name: 'table',
   initialState,
   reducers: {
-    deleteTableNode: (state, action: PayloadAction<TableNode[]>) => {
-
+    setTable: (state, action: PayloadAction<TableNode[]>) => {
+        state.tableNodes = action.payload;
+    },
+    deleteTableNode: (state, action: PayloadAction<string>) => {
+        const nodeId = action.payload;
+        state.tableNodes = removeNode(state.tableNodes, nodeId);
+        state.expandedIds[nodeId] = false;
     },
     toggleTableNode: (state, action: PayloadAction<string>) => {
-      const id = action.payload;
-      if (state.expandedIds.has(id)) {
-        state.expandedIds.delete(id);
-      } else {
-        state.expandedIds.add(id);
-      }
-    },
+        const nodeId = action.payload;
+        if (state.expandedIds[nodeId]) {
+          delete state.expandedIds[nodeId];
+        } else {
+          state.expandedIds[nodeId] = true;
+        }
+    }
   }
 })
 
-export const { deleteTableNode, toggleTableNode } = tableSlice.actions
+export const { setTable, deleteTableNode, toggleTableNode } = tableSlice.actions
 
 export default tableSlice.reducer
